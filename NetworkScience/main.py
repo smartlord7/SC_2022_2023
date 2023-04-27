@@ -23,7 +23,8 @@ def show_betwenness_centrality(g, top_n_nodes):
         node = pair[0]
         centrality = pair[1]
 
-        print("#%d - Node %d: %.4f" % (i, node, centrality))
+        print("#%d - Node %s: %.4f" % (i, node, centrality))
+        i += 1
 
 
 def show_communities(g):
