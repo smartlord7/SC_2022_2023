@@ -18,7 +18,7 @@ def show_betwenness_centrality(g, top_n_nodes):
     betweenness_centrality = nx.betweenness_centrality(g)
     betweenness_centrality = sorted(betweenness_centrality.items(),
                                     key=lambda x: x[1], reverse=True)
-    i = 0
+    i = 1
     for pair in betweenness_centrality:
         node = pair[0]
         centrality = pair[1]
@@ -26,14 +26,17 @@ def show_betwenness_centrality(g, top_n_nodes):
         print("#%d - Node %s: %.4f" % (i, node, centrality))
         i += 1
 
+        if i > top_n_nodes:
+            break
+
 
 def show_communities(g):
     comm = c.louvain_communities(g)
 
     pos = nx.spring_layout(g)
-    size = float(len(set(comm)))
+    size = float(len(comm))
     count = 0.
-    for com in set(comm):
+    for com in comm:
         count += 1.
         list_nodes = [nodes for nodes in comm
                       if comm[nodes] == com]
@@ -62,11 +65,11 @@ def show_graph_stats(g: nx.Graph, top_n_nodes=10):
     max_n_nodes = n_nodes * (n_nodes - 1) / 2
     density = n_nodes / max_n_nodes
 
-    eccentricity = nx.eccentricity(g)
+    eccentricity = 0 #nx.eccentricity(g)
 
-    diameter = nx.diameter(g, e=eccentricity)
+    diameter = 0 #nx.diameter(g, e=eccentricity)
 
-    radius = nx.radius(g, e=eccentricity)
+    radius = 0 #nx.radius(g, e=eccentricity)
 
     print('Number of nodes: %d\n'
           'Number of edges: %d\n'
@@ -79,7 +82,7 @@ def show_graph_stats(g: nx.Graph, top_n_nodes=10):
 
     print('Betweenness centrality from the top %d nodes: ' % top_n_nodes)
 
-    show_betwenness_centrality(g, top_n_nodes)
+    #show_betwenness_centrality(g, top_n_nodes)
 
     show_communities(g)
 
